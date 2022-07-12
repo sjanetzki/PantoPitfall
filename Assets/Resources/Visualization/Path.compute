@@ -1,0 +1,163 @@
+﻿//// Each #kernel tells which function to compile; you can have many kernels
+
+float decayRate;
+int width;
+int height;
+RWTexture2D<float4> Result;
+
+float l_x;
+float l_y;
+float l_last_x;
+float l_last_y;
+float u_x;
+float u_y;
+float u_last_x;
+float u_last_y;
+bool moving;
+
+int numberOfSoundSources;
+float soundPositionXs[10];
+float soundPositionYs[10];
+
+
+#pragma kernel AudioKernel
+[numthreads(8,8,1)]
+void AudioKernel(uint3 id: SV_DispatchThreadID)
+{
+	for (int i = 0; i < numberOfSoundSources; i++)
+	{
+		float2 uv = float2((float) id.x / width, (float) id.y / height);
+		float2 pos = float2(soundPositionXs[i], soundPositionYs[i]);
+
+		float2 d = uv - pos;
+		if (dot(d, d) < 0.0001) {
+			Result[id.xy] = float4(1, 0.6, 0, 1);
+		}
+	}
+}
+
+float Line( float2 p, float2 a, float2 b )
+{
+    float2 pa = p-a, ba = b-a;
+    float h = saturate( dot(pa,ba)/dot(ba,ba) );
+    float2 d = pa - ba * h;
+    return dot(d, d);
+}
+
+float ease_in_quad(float x) {
+	float t = x; float b = 0; float c = 1; float d = 1;
+	return c*(t/=d)*t + b;
+}
+
+#pragma kernel LineKernel
+[numthreads(8,8,1)]
+void LineKernel(uint3 id: SV_DispatchThreadID)
+{
+	if (moving) {
+		float2 uv = float2((float) id.x / width, (float) id.y / height);
+		float k = Line(uv, float2(u_x, u_y), float2(u_last_x, u_last_y));  
+		float thickness = 0.0001;
+		if (k < thickness)
+			Result[id.xy] = float4(0, 1, 0, 1);
+	}
+	if (moving) {
+		float2 uv = float2((float) id.x / width, (float) id.y / height);
+		float k = Line(uv, float2(l_x, l_y), float2(l_last_x, l_last_y));  
+		float thickness = 0.0001;
+		if (k < thickness)
+			Result[id.xy] = float4(0, 0, 1, 1);
+	}
+}
+
+#pragma kernel Diffuse
+RWTexture2D<float4> DiffuseResult;
+bool doIt;
+
+[numthreads(8,8,1)]
+void Diffuse(uint3 id : SV_DispatchThreadID)
+{
+	float4 originalCol = Result[id.xy];
+#if 0
+	float maxAlpha = 0;
+	if (doIt) {
+		int kernelSize = 1;
+		for (int offsetX = -kernelSize; offsetX <= kernelSize; offsetX++) {
+			for (int offsetY = -kernelSize; offsetY <= kernelSize; offsetY++) {
+				int sampleX = min(width-1, max(0, id.x + offsetX));
+				int sampleY = min(height-1, max(0, id.y + offsetY));
+				maxAlpha = max(maxAlpha, Result[int2(sampleX,sampleY)].a);
+				// maxAlpha += Result[int2(sampleX,sampleY)].a;
+			}
+		}
+	} else {
+		maxAlpha = Result[id.xy].a;
+	}
+
+	// finalCol = lerp(finalCol, blurredCol, 0);
+	// finalCol = float4(finalCol.rgb, max(0, finalCol.a - 0.01));
+	// Result[id.xy] = finalCol;
+
+	//float4 blurredCol = sum / ((kernelSize * 2 + 1) * (kernelSize * 2 + 1) - 0.1);
+	// blurredCol = originalCol * (1 - diffuseWeight) + blurredCol * (diffuseWeight);
+#elif 0
+	float4 sum = 0;
+	int kernelSize = 1;
+	int step = 1;
+	for (int x = -kernelSize; x <= kernelSize; x += step) {
+		for (int y = -kernelSize; y <= kernelSize; y += step) {
+			int sampleX = min(width-1, max(0, id.x + x));
+			int sampleY = min(height-1, max(0, id.y + y));
+			sum += Result[int2(sampleX,sampleY)];
+		}
+	}
+	int dimSize = (kernelSize / step * 2 + 1);
+	float4 blurredCol = sum / (dimSize * dimSize);
+#else
+	float Offsets[11] =
+	{
+	-5,
+	-4,
+	-3,
+	-2,
+	-1,
+	0,
+	1,
+	2,
+	3,
+	4,
+	5,
+	};
+
+	float Weights[11][11] =
+	{
+	{0.007959,0.008049,0.00812,0.008171,0.008202,0.008212,0.008202,0.008171,0.00812,0.008049,0.007959},
+	{0.008049,0.00814,0.008212,0.008263,0.008294,0.008305,0.008294,0.008263,0.008212,0.00814,0.008049},
+	{0.00812,0.008212,0.008284,0.008336,0.008367,0.008378,0.008367,0.008336,0.008284,0.008212,0.00812},
+	{0.008171,0.008263,0.008336,0.008388,0.00842,0.00843,0.00842,0.008388,0.008336,0.008263,0.008171},
+	{0.008202,0.008294,0.008367,0.00842,0.008451,0.008462,0.008451,0.00842,0.008367,0.008294,0.008202},
+	{0.008212,0.008305,0.008378,0.00843,0.008462,0.008473,0.008462,0.00843,0.008378,0.008305,0.008212},
+	{0.008202,0.008294,0.008367,0.00842,0.008451,0.008462,0.008451,0.00842,0.008367,0.008294,0.008202},
+	{0.008171,0.008263,0.008336,0.008388,0.00842,0.00843,0.00842,0.008388,0.008336,0.008263,0.008171},
+	{0.00812,0.008212,0.008284,0.008336,0.008367,0.008378,0.008367,0.008336,0.008284,0.008212,0.00812},
+	{0.008049,0.00814,0.008212,0.008263,0.008294,0.008305,0.008294,0.008263,0.008212,0.00814,0.008049},
+	{0.007959,0.008049,0.00812,0.008171,0.008202,0.008212,0.008202,0.008171,0.00812,0.008049,0.007959},
+	};
+
+	float4 blurredCol = {0, 0, 0, 0};
+	for (int x = 0; x < 11; x++) 
+	{
+		for (int y = 0; y < 11; y++)
+		{
+			int sampleX = min(width-1, max(0, id.x + Offsets[x]));
+			int sampleY = min(height-1, max(0, id.y + Offsets[y]));
+			blurredCol += Result[int2(sampleX, sampleY)] * Weights[x][y];
+		}
+	}
+#endif
+
+	//DiffuseResult[id.xy]
+	DiffuseResult[id.xy] = float4(saturate(blurredCol.rgb), saturate(blurredCol.a - decayRate));
+	//DiffuseResult[id.xy] = saturate(pow(saturate(blurredCol * 1.021), 1.021));
+	//float alpha = saturate(maxAlpha - 0.002);
+	//DiffuseResult[id.xy] = float4(0, alpha, 0, alpha);
+}
