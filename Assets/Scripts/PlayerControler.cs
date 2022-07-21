@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DualPantoFramework;
@@ -30,11 +30,9 @@ public class PlayerControler : MonoBehaviour
         {
             gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             transform.position = upperHandle.GetPosition();
-            Debug.Log("not paused");
         } else{
             gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             upperHandle.MoveToPosition(transform.position);
-            Debug.Log("paused");
         }
     }
 
@@ -52,8 +50,10 @@ public class PlayerControler : MonoBehaviour
         {
             Debug.Log("Collision with Door)");
             if(has_key){
-                panto.GetComponent<PantoControler>().OpenDoor(other.gameObject);
-                has_key = false;
+                Debug.Log("collison with door and key");
+                //panto.GetComponent<PantoControler>().OpenDoor(other.gameObject);
+                other.gameObject.GetComponent<PantoBoxCollider>().Disable();
+                //has_key = false;
             }
             else{
                speechOut.Speak("I need a key for this door."); 

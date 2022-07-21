@@ -77,7 +77,7 @@ public class PantoControler : MonoBehaviour
     async void SetUpItHandle()
     {
         GameObject crown = FindCrown();
-        await lowerHandle.SwitchTo(crown);
+        await lowerHandle.MoveToPosition(crown.transform.position);
     }
 
     public void WinLevel()
@@ -103,8 +103,8 @@ public class PantoControler : MonoBehaviour
 
     public void OpenDoor(GameObject door)
     {
-        //gameObject.active = false;
-        door.SetActive(false); // door should disappear
+        //door.SetActive(false); // door should disappear
+        Destroy(door);
     }
     public void StartWithItem()
     {
@@ -130,7 +130,7 @@ public class PantoControler : MonoBehaviour
             case ("Level03"):
             {
                 GetComponent<PlayerControler>().has_sword = false;
-                GetComponent<PlayerControler>().has_key = false;
+                GetComponent<PlayerControler>().has_key = true;
                 speechOut = new SpeechOut();
                 Debug.Log("changed sword to key");
                 speechOut.Speak("You have a key");
