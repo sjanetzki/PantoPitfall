@@ -56,6 +56,7 @@
      <Compile Include="Assets\SpeechIOForUnity\Assets\Scripts\Example Speech Scripts\Advanced\DialogManager.cs" />
      <Compile Include="Assets\PantoScripts\ForceField.cs" />
      <Compile Include="Assets\PantoScripts\DualPantoSync.cs" />
+     <Compile Include="Assets\Scripts\CrownScript.cs" />
      <Compile Include="Assets\PantoScripts\ActivateObstaclesSphere.cs" />
      <Compile Include="Assets\SpeechIOForUnity\Assets\Scripts\Example Speech Scripts\MySpeechOutScript.cs" />
      <Compile Include="Assets\ExampleScripts\ForcefieldLabyrinth\LabyrinthFinishLine.cs" />
@@ -108,7 +109,7 @@
      <Compile Include="Assets\SpeechIOForUnity\Assets\Scripts\Speech Input Core Scripts\WindowsSpeechIn.cs" />
      <Compile Include="Assets\ExampleScripts\MovingIt.cs" />
      <Compile Include="Assets\PantoScripts\PantoLineCollider.cs" />
-     <Compile Include="Assets\Scripts\CrownScript.cs" />
+     <Compile Include="Assets\Test.cs" />
      <None Include="Assets\Resources\Visualization\Path.compute" />
      <None Include="Assets\SpeechIOForUnity\ProjectSettings\ProjectVersion.txt" />
      <None Include="Assets\Resources\Visualization\PathShader.compute" />

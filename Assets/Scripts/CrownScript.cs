@@ -10,6 +10,7 @@ public class CrownScript : MonoBehaviour
     PantoHandle upperHandle;
     PantoHandle lowerHandle;
     GameObject panto;
+  
     // Start is called before the first frame update
     void Start()
     {

@@ -5,6 +5,8 @@ using DualPantoFramework;
 using SpeechIO;
 using UnityEngine.SceneManagement;
 using System;
+using System.Threading.Tasks;
+using System.Threading;
 
 public class PantoControler : MonoBehaviour
 {
@@ -14,9 +16,14 @@ public class PantoControler : MonoBehaviour
     private SpeechIn speechIn;
     public bool paused; //tick in Unity --> true at start
     public string sceneName;
+    public AudioClip win;
+    private AudioSource audioSource;
+
+
     // Start is called before the first frame update
     async void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         upperHandle = GetComponent<UpperHandle>();
         lowerHandle = GetComponent<LowerHandle>();
 
@@ -46,14 +53,15 @@ public class PantoControler : MonoBehaviour
         
     }
 
-    void onSpechRecognized(string command)
+    async void onSpechRecognized(string command)
     {
         if((command == "help" || command == "stop" || command =="pause" || command == "break") && !paused)
         {
             paused = true;
             Debug.Log("help");
-            speechIn.StartListening(new string[]{"resume", "start", "continue"});
+            await GetComponent<Level>().PlayIntroduction();
             speechOut.Speak("Say start if you want to resume the game.");
+            speechIn.StartListening(new string[]{"resume", "start", "continue"});
         }
         else if((command == "resume" || command == "start" || command == "continue") && paused)
         {
@@ -80,8 +88,23 @@ public class PantoControler : MonoBehaviour
         await lowerHandle.MoveToPosition(crown.transform.position);
     }
 
-    public void WinLevel()
+    public float PlayWin()
     {
+        audioSource.PlayOneShot(win);
+        //audioSource.clip = win;
+        //audioSource.Play();
+        //await Task.Delay(100);
+        return win.length;
+    }
+    public async void WinLevel()
+    {   
+        /*audioSource.clip = win;
+        audioSource.Play();
+        await Task.Delay(100);*/
+        //audioSource.PlayOneShot(win, 0.7F);
+
+        PlayWin();
+
         //switch level here
         switch (sceneName){
             case ("Level01"):
@@ -97,6 +120,8 @@ public class PantoControler : MonoBehaviour
                 	speechOut.Speak("You won"+sceneName);
                     break;
         }
+        audioSource.clip = win;
+        audioSource.PlayDelayed(1);
         //speechOut.Speak("You won the first level.");
         
     }
