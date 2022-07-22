@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7601407913931978448}
   - component: {fileID: 7601407913931978452}
   - component: {fileID: 7601407913931978443}
-  - component: {fileID: 7601407913931978442}
+  - component: {fileID: 26018781}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -131,9 +131,9 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &7601407913931978442
+--- !u!114 &26018781
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   traceShape: 0
   isOnUpper: 1
-  description: You have a key for opening the door.
+  description: 
   priority: 0
 --- !u!1 &7601407914596843690
 GameObject:

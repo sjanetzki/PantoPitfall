@@ -637,21 +637,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9067720545838191123, guid: 0ace27a3e4650ad4a8c628667bca05a5, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 9067720545838191124, guid: 0ace27a3e4650ad4a8c628667bca05a5, type: 3}
       propertyPath: m_Name
       value: Door
-      objectReference: {fileID: 0}
-    - target: {fileID: 9067720545838191127, guid: 0ace27a3e4650ad4a8c628667bca05a5, type: 3}
-      propertyPath: priority
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 9067720545838191127, guid: 0ace27a3e4650ad4a8c628667bca05a5, type: 3}
-      propertyPath: description
-      value: Here is a door, but you don't have a key.
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ace27a3e4650ad4a8c628667bca05a5, type: 3}
@@ -662,10 +650,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7601407913931978442, guid: cf2711a3f66cd8e46affaae07661a07f, type: 3}
-      propertyPath: description
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 7601407913931978449, guid: cf2711a3f66cd8e46affaae07661a07f, type: 3}
       propertyPath: m_Name
       value: Player
@@ -737,7 +721,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 826605487606422808, guid: f08d327e9fb42f94d97ba9d1d226d418, type: 3}
       propertyPath: debug
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 826605487606422809, guid: f08d327e9fb42f94d97ba9d1d226d418, type: 3}
       propertyPath: m_Name
@@ -836,10 +820,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 226216393546965644, guid: fda2a9c71407696408f677cc7f1123be, type: 3}
-      propertyPath: description
-      value: You can find one in this chest.
-      objectReference: {fileID: 0}
     - target: {fileID: 226216393546965651, guid: fda2a9c71407696408f677cc7f1123be, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.45

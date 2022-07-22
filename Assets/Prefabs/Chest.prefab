@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 226216393546965649}
   - component: {fileID: 226216393546965648}
   - component: {fileID: 226216393546965655}
-  - component: {fileID: 226216393546965644}
   - component: {fileID: 567231659}
   - component: {fileID: 7534657813631483432}
+  - component: {fileID: 1789294349}
   m_Layer: 0
   m_Name: Chest
   m_TagString: Chest
@@ -115,22 +115,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &226216393546965644
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 226216393546965654}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7948ea43f9f03c647aa1ec214c4fbde9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  traceShape: 0
-  isOnUpper: 0
-  description: 
-  priority: 3
 --- !u!114 &567231659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,3 +140,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e723c9183bdac04297e2fce6a762616, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1789294349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226216393546965654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7948ea43f9f03c647aa1ec214c4fbde9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  traceShape: 0
+  isOnUpper: 0
+  description: You can find one in this chest.
+  priority: 1

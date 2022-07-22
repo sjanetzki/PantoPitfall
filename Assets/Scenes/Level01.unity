@@ -130,9 +130,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7601407913931978442, guid: cf2711a3f66cd8e46affaae07661a07f, type: 3}
+    - target: {fileID: 26018781, guid: cf2711a3f66cd8e46affaae07661a07f, type: 3}
       propertyPath: description
-      value: You are this handle.
+      value: You are on  this upper handle.
       objectReference: {fileID: 0}
     - target: {fileID: 7601407913931978449, guid: cf2711a3f66cd8e46affaae07661a07f, type: 3}
       propertyPath: m_Name

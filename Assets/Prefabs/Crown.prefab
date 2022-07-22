@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 7073291000121771322}
   - component: {fileID: 7073291000121771333}
   - component: {fileID: 7073291000121771321}
-  - component: {fileID: 7073291000121771326}
+  - component: {fileID: 1272014430}
   m_Layer: 0
   m_Name: Crown
   m_TagString: Crown
@@ -365,7 +365,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &7073291000121771326
+--- !u!114 &1272014430
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -379,8 +379,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   traceShape: 0
   isOnUpper: 0
-  description: Get to the Crown!
-  priority: 1
+  description: Get to the crown!
+  priority: 0
 --- !u!1 &7073291000295051711
 GameObject:
   m_ObjectHideFlags: 0
