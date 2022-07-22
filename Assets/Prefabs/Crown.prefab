@@ -379,7 +379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   traceShape: 0
   isOnUpper: 0
-  description: Go to the Crown!
+  description: Get to the Crown!
   priority: 1
 --- !u!1 &7073291000295051711
 GameObject:

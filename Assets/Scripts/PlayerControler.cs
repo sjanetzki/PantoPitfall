@@ -14,6 +14,10 @@ public class PlayerControler : MonoBehaviour
     public bool has_sword = false;
     public bool has_key = true;
     public bool has_shield = false;
+    public AudioClip doorOpen;
+    public AudioClip doorKnock;
+    public AudioClip chestOpen;
+    private AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +25,8 @@ public class PlayerControler : MonoBehaviour
         upperHandle = panto.GetComponent<UpperHandle>();
         lowerHandle = panto.GetComponent<LowerHandle>();
         panto.GetComponent<PantoControler>().StartWithItem();
+        audioSource = panto.GetComponent<AudioSource>();
+        speechOut = new SpeechOut();
     }
 
     // Update is called once per frame
@@ -50,13 +56,25 @@ public class PlayerControler : MonoBehaviour
         {
             Debug.Log("Collision with Door)");
             if(has_key){
-                Debug.Log("collison with door and key");
-                //panto.GetComponent<PantoControler>().OpenDoor(other.gameObject);
+                audioSource.PlayOneShot(doorOpen, 0.5f);
                 other.gameObject.GetComponent<PantoBoxCollider>().Disable();
                 //has_key = false;
             }
             else{
-               speechOut.Speak("I need a key for this door."); 
+                audioSource.PlayOneShot(doorKnock, 0.7f);
+                speechOut.Speak("I need a key for this door.");
+            }
+        }
+
+        //CHEST
+        else if(other.gameObject.CompareTag("Chest"))
+        {
+            Debug.Log("Collision with Chest");
+            if(!has_key && other.gameObject.GetComponent<ChestScript>().chestOpen == false){
+                audioSource.PlayOneShot(chestOpen);
+                speechOut.Speak("You found a key in this chest.");
+                has_key = true;
+                other.gameObject.GetComponent<ChestScript>().chestOpen = true;
             }
         }
 

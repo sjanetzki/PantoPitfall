@@ -59,7 +59,7 @@ public class PantoControler : MonoBehaviour
         {
             paused = true;
             Debug.Log("help");
-            await GetComponent<Level>().PlayIntroduction();
+            //await GetComponent<Level>().PlayIntroduction();
             speechOut.Speak("Say start if you want to resume the game.");
             speechIn.StartListening(new string[]{"resume", "start", "continue"});
         }
@@ -88,22 +88,9 @@ public class PantoControler : MonoBehaviour
         await lowerHandle.MoveToPosition(crown.transform.position);
     }
 
-    public float PlayWin()
-    {
-        audioSource.PlayOneShot(win);
-        //audioSource.clip = win;
-        //audioSource.Play();
-        //await Task.Delay(100);
-        return win.length;
-    }
     public async void WinLevel()
     {   
-        /*audioSource.clip = win;
-        audioSource.Play();
-        await Task.Delay(100);*/
-        //audioSource.PlayOneShot(win, 0.7F);
-
-        PlayWin();
+        audioSource.PlayOneShot(win, 0.5f);
 
         //switch level here
         switch (sceneName){
@@ -120,17 +107,10 @@ public class PantoControler : MonoBehaviour
                 	speechOut.Speak("You won"+sceneName);
                     break;
         }
-        audioSource.clip = win;
-        audioSource.PlayDelayed(1);
         //speechOut.Speak("You won the first level.");
         
     }
 
-    public void OpenDoor(GameObject door)
-    {
-        //door.SetActive(false); // door should disappear
-        Destroy(door);
-    }
     public void StartWithItem()
     {
         //level 03 starts with key

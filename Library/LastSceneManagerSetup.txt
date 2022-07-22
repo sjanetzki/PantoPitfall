@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Overcooked/Overcooked.unity
+- path: Assets/Scenes/Level04.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

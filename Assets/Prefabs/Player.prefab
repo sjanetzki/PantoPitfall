@@ -114,6 +114,9 @@ MonoBehaviour:
   has_sword: 0
   has_key: 1
   has_shield: 0
+  doorOpen: {fileID: 8300000, guid: 0cf67093196e44342aecbc4e6474ea70, type: 3}
+  doorKnock: {fileID: 8300000, guid: 355c88527797d3549a32ff2404437e5a, type: 3}
+  chestOpen: {fileID: 8300000, guid: 9d96fff00d0ce5448bbd8d781e2b4f9c, type: 3}
 --- !u!54 &7601407913931978443
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -144,7 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   traceShape: 0
   isOnUpper: 1
-  description: 
+  description: You have a key for opening the door.
   priority: 0
 --- !u!1 &7601407914596843690
 GameObject:
